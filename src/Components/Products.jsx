@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import { Link } from 'react-router-dom'
 
 const Products = () => {
+  useEffect(() => {
+    allPackage();
+}, []);
+
+const [ispackage, setPackage] = useState([]);
+
+const allPackage = async () => {
+    axios.get(`http://localhost/react_project/fruitka_react_project/api/product.php`).then(result => {
+        console.log(result.data.packagelist)
+        setPackage(result.data.packagelist);
+    })
+}
+
+if (ispackage) {
   return (
     <>
         {/* product section */}
@@ -16,36 +31,22 @@ const Products = () => {
       </div>
     </div>
     <div className="row">
-      <div className="col-lg-4 col-md-6 text-center">
+
+      {
+        ispackage.map(item=>(
+          <div className="col-lg-4 col-md-6 text-center">
         <div className="single-product-item">
           <div className="product-image">
-            <Link to="/single-product"><img src="assets/img/products/product-img-1.jpg" alt /></Link>
+            <Link to="/single-product"><img src={"assets/img/products/"+ item.product_image} alt /></Link>
           </div>
-          <h3>Strawberry</h3>
-          <p className="product-price"><span>Per Kg</span> 85$ </p>
+          <h3>{item.product_title}</h3>
+          <p className="product-price"><span>Per Kg</span> {item.product_price}$ </p>
           <Link to="/cart" className="cart-btn"><i className="fas fa-shopping-cart" /> Add to Cart</Link>
         </div>
       </div>
-      <div className="col-lg-4 col-md-6 text-center">
-        <div className="single-product-item">
-          <div className="product-image">
-            <Link to="/single-product"><img src="assets/img/products/product-img-2.jpg" alt /></Link>
-          </div>
-          <h3>Berry</h3>
-          <p className="product-price"><span>Per Kg</span> 70$ </p>
-          <Link to="/cart" className="cart-btn"><i className="fas fa-shopping-cart" /> Add to Cart</Link>
-        </div>
-      </div>
-      <div className="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-        <div className="single-product-item">
-          <div className="product-image">
-            <Link to="/single-product"><img src="assets/img/products/product-img-3.jpg" alt /></Link>
-          </div>
-          <h3>Lemon</h3>
-          <p className="product-price"><span>Per Kg</span> 35$ </p>
-          <Link to="/cart" className="cart-btn"><i className="fas fa-shopping-cart" /> Add to Cart</Link>
-        </div>
-      </div>
+        ))
+      }
+      
     </div>
   </div>
 </div>
@@ -53,6 +54,6 @@ const Products = () => {
 
     </>
   )
-}
+}}
 
 export default Products

@@ -17,7 +17,9 @@ const handleSubmit = (e) =>{
 const handleChange = (e)=> {
   const name = e.target.name;
   const value = e.target.value;
-  setContactInfo((val)=>({...val, [name]:value}));
+  // setContactInfo((val)=>({...val, [name]:value}));
+  setContactInfo((val) => ({ ...val, [name]: value }));
+
 }
 
 const contactInsert = ()=>{

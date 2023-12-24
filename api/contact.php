@@ -15,9 +15,10 @@
         $address = $abc->data->address;
         $details = $abc->data->details;
 
-        $sql = "INSERT INTO `complain`(`id`, `name`, `email`, `phone`, `subject`, `address`, `detailes`, `create_at`) VALUES (NULL, '$name', '$email', $phone, $subject, $address, $details, NOW())";
-    
-        // $sql = "INSERT INTO `complain`(`id`, `name`, `email`, `phone`, `subject`, `address`, `detailes`, `create_at`) VALUES(NULL, '$name', '$email', $phone, $subject, $address, $details, now())";
+        $sql = "INSERT INTO `complain` (`id`, `name`, `email`, `phone`, `subject`, `address`, `detailes`, `create_at`) 
+        VALUES (NULL, '$name', '$email', $phone, '$subject', '$address', '$details', NOW())";
+
+
             $add = mysqli_query($db_conn, $sql);
     
             if(mysqli_affected_rows($db_conn) > 0) {
